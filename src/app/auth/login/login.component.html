@@ -1,0 +1,11 @@
+<form [formGroup]="form" (submit)="onLogin()">
+  <div>
+    <input formControlName="email" placeholder="email" required>
+    <p>Please enter a valid email</p>
+  </div>
+  <div>
+    <input formControlName="password" placeholder="password" required>
+    <p>Please enter a valid password</p>
+  </div>
+  <button type="submit">Login</button>
+</form>
