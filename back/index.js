@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
+const port = process.env.PORT || 8000
+
 mongoose.connect('mongodb+srv://admin:amitiaadmin@amitia.chwsc.mongodb.net/amitia?retryWrites=true&w=majority' , { 
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -25,4 +27,4 @@ app.use(express.json());
 
 app.use('/api', routes);
 
-app.listen(8000, () => console.log('Connected to port 8000'));
+app.listen(8000, () => console.log(`Connected to port ${port}`));

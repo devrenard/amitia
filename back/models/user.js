@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
   },
   bot: {
     type: Number,
-    default: 1
+    default: 0
   }
 })
 

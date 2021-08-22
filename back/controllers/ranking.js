@@ -43,12 +43,14 @@ exports.shifumiRanking = async (req, res) => {
       })
     }
 
-    const usersShifumi = await User.find().sort( { pointsShifumi : -1 } ).limit(10)
-    console.log(usersShifumi);
+    const shifumiRanking = await User.aggregate([
+      {"$sort":{"pointsShifumi":-1}}
+    ]).limit(3)
+    console.log(shifumiRanking);
  
-    const data = await usersShifumi[0].toJSON();
 
-    res.send(data)
+    res.send(shifumiRanking);
+
   } 
   catch (err) {
     return res.status(401).send({
@@ -69,14 +71,11 @@ exports.desRanking = async (req, res) => {
       })
     }
 
-    let user =  await User.find({_id: claims._id});
-
-    const usersDes = await User.find().sort( { pointsDes : -1 } ).limit(10)
-    console.log(usersDes);
+    const desRanking = await User.aggregate([
+      {"$sort":{"pointsDes":-1}}
+    ]).limit(3)
  
-    const data = await usersDes[0].toJSON();
-
-    res.send(data)
+    res.send(desRanking);
   } 
   catch (err) {
     return res.status(401).send({
