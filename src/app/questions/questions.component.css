@@ -1,0 +1,103 @@
+:root {
+  --hue-neutral: 200;
+  --hue-wrong: 0;
+  --hue-correct: 145;
+}
+
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.question-container {
+  width: 600px;
+  max-width: 80%;
+}
+
+#logo {
+  width: 6em;
+  position: fixed;
+  top: 2.4rem;
+  left: 2rem;
+}
+
+#question,
+.btn {
+  color: #426696;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+#question {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(1, auto);
+  gap: 2rem;
+  margin: 3rem auto;
+  width: 70%;
+}
+
+.btn-grid .btn {
+  font-size: 1.1em;
+}
+
+.btn-grid .btn span {
+  font-size: 1.5em;
+}
+
+.btn {
+  background-color: white;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  border: 1px solid hsl(var(--hue), 100%, 30%);
+  background-color: hsl(var(--hue), 100%, 50%);
+  border-radius: 5px;
+  padding: 5px 10px;
+  outline: none;
+  cursor: pointer;
+  }
+
+.start-btn {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+/* WELCOME */
+h2 {
+ font-size: 2.7em;
+}
+
+.welcome-container {
+  text-align: center;
+  margin-top: -2em;
+ }
+
+.welcome-container .intro {
+  font-size: 1.1em;
+  padding-bottom: 2.5em;
+  display: block;
+  width: 500px;
+}
+
+.go-login {
+  font-size: 0.8em;
+  margin-top: 0.8em;
+  text-align: center;
+}
+
+.btn-grid p {
+  text-align: center;
+  font-size: 1em;
+}

@@ -3,20 +3,16 @@
     <div class="row">
       <a href="#" class="card card-classement">
         <img src="assets/img/fist.svg" alt="Shifumi" />
-        <div class="card-info ">
+        <div class="card-info">
           <h2>Shifumi</h2>
-          <p>🥇 Eliot 45</p>
-          <p>🥈 Tom</p>
-          <p>🥉 Matilde</p>
+          <p *ngFor="let score of shifumiRanking">🥇 {{score.username}} {{score.pointsShifumi}} points</p>
         </div>
       </a>
       <a href="#" class="card card-classement">
-        <img src="assets/img/fist.svg" alt="Dés" />
+        <img src="assets/img/dice.svg" alt="Dés" />
         <div class="card-info">
           <h2>Dés</h2>
-          <p>🥇 Eliot 45</p>
-          <p>🥈 Tom</p>
-          <p>🥉 Matilde</p>
+          <p *ngFor="let score of desRanking">🥇 {{score.username}} {{score.pointsDes}} points</p>
         </div>
       </a>
     </div>

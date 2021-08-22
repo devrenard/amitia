@@ -1,0 +1,28 @@
+<div class="container">
+  <a routerLink="">
+    <img id="logo" src="../../assets/img/logo-amitia.svg" alt="">
+  </a>
+
+  <div *ngIf="questionDiv" class="question-container">
+    <div id="question">{{questions[currentQuestionIndex].question}}</div>
+    <div class="btn-grid">
+      <button class="btn" (click)="onAnswer1()">{{questions[currentQuestionIndex].answers[0].text}}</button>
+      <button class="btn" (click)="onAnswer2()">{{questions[currentQuestionIndex].answers[1].text}}</button>
+      <button class="btn" (click)="onAnswer3()">{{questions[currentQuestionIndex].answers[2].text}}</button>
+      <p> {{currentQuestionIndex + 1}} / 5</p>
+    </div>
+  </div>
+
+  <div class="welcome-container" *ngIf="startDiv">
+    <h2>Bienvenue {{username || "à toi !"}}</h2>
+    <p class="intro">Prends le temps de répondre à quelques questions afin de personnaliser ton expérience</p>
+    <button id='start-btn' class="start-btn btn" (click)="onStart()" >C'est parti !</button>
+    <p class="go-login">Non merci, je veux directement <a routerLink="/">aller jouer</a></p>
+  </div>
+
+  <div class="result-container" *ngIf="resultDiv">
+    <img src={{botImg}} alt="bot">
+    <p id="bot">Ton bot de jeu est : {{botName}}</p>
+  </div>
+
+</div>

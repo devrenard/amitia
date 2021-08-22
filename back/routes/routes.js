@@ -1,123 +1,60 @@
-const router = require ('express').Router();
-const bcrypt = require ('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const router = require ('express').Router()
+const { check } = require('express-validator')
+const User = require('../models/user')
 
 const pointsShifumiController = require ('../controllers/pointsShifumi')
 const pointsDesController = require ('../controllers/pointsDes')
 const rankingController = require ('../controllers/ranking')
+const authController = require ('../controllers/auth')
+const userInfosController = require ('../controllers/userInfos')
+const botController = require ('../controllers/bot.js')
 
-router.post('/signup', async (req, res) => {
-  
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(req.body.password, salt)
+// Middleware
+const loginCheck = require ('../middleware/loginCheck')
 
-  const user = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: hashedPassword
-  })
 
-  const result = await user.save()
-  const {password, ...data} = await result.toJSON()
+// signup
+router.post('/signup', 
 
-  res.send(data)
+// loginCheck.loginCheck
+[
+  check('username').not().isEmpty().withMessage('Vous devez remplir votre nom de joueur').isLength({ min: 3 }).trim().withMessage('Ton nom de joueur doit avoir au minimum 3 caractères'),
+  check('email').not().isEmpty().withMessage('Tu dois rentrer un email').isEmail().withMessage('Ton adresse email n\'est pas valide')
+  // Check if email is already in the Database
+  .custom((value, {req}) => {
+    return new Promise((resolve, reject) => {
+      User.findOne({email:req.body.email}, function(err, user){
+        if(err) {
+          reject(new Error('Server Error'))
+        }
+        if(Boolean(user)) {
+          reject(new Error('Cet email est déjà utilisé'))
+        }
+        resolve(true)
+      });
+    });
+  }),
+  check('password').not().isEmpty().withMessage('Vous devez choisir un mot de passe').isLength({ min: 8 }).trim().withMessage('Ton nom de joueur doit avoir au minimum 8 caractères').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i").withMessage('Ton mot de passe doit contenir au moins une minuscule, une majuscule et un chiffre'),
+]
+,authController.signup);
 
-})
+// checkmail
+router.post('/checkemail', authController.checkEmail);
+// login
+router.post('/login', authController.login);
+// first login
+router.get('/botstatus', authController.checkBot);
+// logout
+router.post('/logout', authController.logout);
 
-router.post('/login', async (req, res) => {
-  const user = await User.findOne({email: req.body.email})
 
-  if(!user) {
-    return res.status(404).send({
-      message: 'user not found'
-    })
-  }
+// select a bot
+router.post('bot', botController.botSelection);
 
-  if(!await bcrypt.compare(req.body.password, user.password)) {
-    return res.status(404).send({
-      message: 'password is false'
-    })
-  }
 
-  const token = jwt.sign({_id: user._id}, 'secret_amitia')
+// user infos
+router.get('/user', userInfosController.userInfos);
 
-  res.cookie('jwt', token, {
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000 // 1 day
-  })
-  res.send({
-    message: 'success'
-  })
-})
-
-router.get('/user', async (req, res) => {
-  try{
-    const cookie = req.cookies['jwt']
-
-    const claims = jwt.verify(cookie, 'secret_amitia')
-
-    if (!claims) {
-      return res.status(401).send({
-        message: 'unauthenticated'
-      })
-    }
-
-    const user =  await User.findOne({_id: claims._id});
-
-    const {password, ...data} = await user.toJSON();
-
-    res.send(data)
-  } 
-  catch (err) {
-    return res.status(401).send({
-      message: 'unauthenticated'
-    })
-  }
-})
-
-router.post('/logout', (req, res) => {
-  res.cookie('jwt', '',{maxAge: 0})
-
-  res.send({
-    message: 'success'
-  })
-})
-
-// Points
-router.get('/points', async (req, res) => {
-  try{
-    const cookie = req.cookies['jwt']
-    const claims = jwt.verify(cookie, 'secret_amitia')
-
-    if (!claims) {
-      return res.status(401).send({
-        message: 'unauthenticated'
-      })
-    }
-
-    let user =  await User.find({_id: claims._id});
- 
-    const updatedUser = await User.findByIdAndUpdate(
-      user[0]._id,
-      { pointsShifumi : user[0].pointsShifumi + 4 }, {
-      new: true,
-      runValidators: true
-    })
-
-    user =  await updatedUser;
-    
-    const {password, ...data} = await user.toJSON();
-    
-
-    res.send(data)
-  } 
-  catch (err) {
-    return res.status(401).send({
-      message: 'unauthenticated err'
-    })
-  }
-})
 
 // points shifumi level 1
 router.get ('/wins1', pointsShifumiController.win1);
@@ -146,7 +83,8 @@ router.get ('/ranking', rankingController.globalRanking);
 router.get ('/ranking-shifumi', rankingController.shifumiRanking);
 router.get ('/ranking-des', rankingController.desRanking);
 
-// personnal ranking
+
+// personnal ranking NOT WORKING YET !!!
 router.get ('/ranking', rankingController.personnalRanking);
 
 module.exports = router;
