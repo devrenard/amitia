@@ -49,7 +49,9 @@ router.post('/logout', authController.logout);
 
 
 // select a bot
-router.post('bot', botController.botSelection);
+router.get('/bot1', botController.botSelection1);
+router.get('/bot2', botController.botSelection2);
+router.get('/bot3', botController.botSelection3);
 
 
 // user infos
@@ -79,12 +81,11 @@ router.get ('/losed3', pointsDesController.lose3);
 
 
 // ranking
-router.get ('/ranking', rankingController.globalRanking);
+router.get ('/ranking-global', rankingController.globalRanking);
 router.get ('/ranking-shifumi', rankingController.shifumiRanking);
 router.get ('/ranking-des', rankingController.desRanking);
 
-
 // personnal ranking NOT WORKING YET !!!
-router.get ('/ranking', rankingController.personnalRanking);
+router.get ('/ranking-user', rankingController.personnalRanking);
 
 module.exports = router;

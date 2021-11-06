@@ -16,10 +16,10 @@ import { QuestionsComponent } from './questions/questions.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'sign-up', component: SignUpComponent },
+  { path: 'inscription', component: SignUpComponent },
   { path: 'personnalisation', component: QuestionsComponent },
   { path: '', component: HomeComponent
-  // , canActivate: [AuthGuard] 
+  , canActivate: [AuthGuard]
   , children: [
     { path: '', component: DashboardComponent },
     { path: 'classement', component: RankingComponent },

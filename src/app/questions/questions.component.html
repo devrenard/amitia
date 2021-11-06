@@ -1,5 +1,5 @@
 <div class="container">
-  <a routerLink="">
+  <a href="/">
     <img id="logo" src="../../assets/img/logo-amitia.svg" alt="">
   </a>
 
@@ -16,13 +16,16 @@
   <div class="welcome-container" *ngIf="startDiv">
     <h2>Bienvenue {{username || "à toi !"}}</h2>
     <p class="intro">Prends le temps de répondre à quelques questions afin de personnaliser ton expérience</p>
-    <button id='start-btn' class="start-btn btn" (click)="onStart()" >C'est parti !</button>
+    <button class="btn-start btn" (click)="onStart()" >C'est parti !</button>
     <p class="go-login">Non merci, je veux directement <a routerLink="/">aller jouer</a></p>
   </div>
 
   <div class="result-container" *ngIf="resultDiv">
     <img src={{botImg}} alt="bot">
     <p id="bot">Ton bot de jeu est : {{botName}}</p>
+    <a href="/">
+      <button class="btn btn-end">OK</button>
+    </a>
   </div>
 
 </div>

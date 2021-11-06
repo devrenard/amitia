@@ -1,2 +1,10 @@
-<!-- <p id="typewriter" class="bot-text tw">{{ message }}</p> -->
-<p id="typewriter" class="bot-text tw"></p>
+<!-- <div [ngSwitch]="botTextResponseDisplay"> -->
+<!-- <p *ngIf="botTextResponseDisplay === 'normal'" id="typewriter" class="bot-text tw"></p> -->
+<p id="typewriter" class="bot-text tw" [hidden]="botTextResponseDisplay !== 'normal'"></p>
+<p id="typewriter" class="bot-text twHello" [hidden]="botTextResponseDisplay !== 'hello'"></p>
+<p id="typewriter" class="bot-text twUp" [hidden]="botTextResponseDisplay !== 'up'"></p>
+<p id="typewriter" class="bot-text twLove" [hidden]="botTextResponseDisplay !== 'love'"></p>
+<p id="typewriter" class="bot-text twFun" [hidden]="botTextResponseDisplay !== 'fun'"></p>
+<p id="typewriter" class="bot-text twBye" [hidden]="botTextResponseDisplay !== 'bye'"></p>
+<!-- <p *ngSwitchCase="'hello'" id="typewriter" class="bot-text twHello"></p> -->
+<!-- </div> -->

@@ -1,0 +1,15 @@
+.profil-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profil-form .field {
+  display: flex;
+  justify-content: center;
+  margin: 1em auto;
+}
+
+label {
+  margin: auto;
+}

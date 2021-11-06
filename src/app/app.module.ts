@@ -4,6 +4,10 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr');
+
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -24,6 +28,7 @@ import { ParametersComponent } from './home/main/parameters/parameters.component
 import { BotsComponent } from './home/main/bots/bots.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -56,8 +61,9 @@ import { QuestionsComponent } from './questions/questions.component';
   ],
   providers: [
     AuthService,
-    AuthService
+    CookieService
   ],
   bootstrap: [AppComponent]
+
 })
-export class AppModule { }
+export class AppModule {  }

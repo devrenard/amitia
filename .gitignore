@@ -46,3 +46,4 @@ Thumbs.db
 
 # Back
 /back/.env
+/back/node_modules

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private cookieService: CookieService
+
   ) { }
 
 
@@ -34,11 +37,7 @@ export class AuthService {
   }
 
   isLoggedIn():boolean {
-    this.http.get(this.baseUrl + 'user', {withCredentials: true}).subscribe(
-      () => this.isAuthenticated = true,
-      err => false
-    );
-    return this.isAuthenticated
+    return !!localStorage.getItem('token')
   }
 
   getAuthTrue() {

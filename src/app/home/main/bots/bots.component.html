@@ -1,1 +1,18 @@
-<p>bots works!</p>
+<div class="row robot-choice">
+  <div class="arrow-left">
+    <fa-icon [icon]="faArrowLeft" (click)="previous()" size="2x"></fa-icon>
+  </div>
+
+  <div class="bot-choice">
+    <img src={{botArray[botPosition]}} class="bot" alt="">
+  </div>
+
+  <div class="arrow-right">
+    <fa-icon [icon]="faArrowRight" (click)="next()" size="2x"></fa-icon>
+  </div>
+</div>
+<a (click)="onChangeBot(botPosition + 1)" href="/" class="card card-greeting" style="margin: 2.5em auto 0 auto;">
+  <div class="card-greeting-inside">
+    <h2 >Je choisis ce bot</h2>
+  </div>
+</a>

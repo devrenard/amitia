@@ -1,1 +1,33 @@
-<p>profil works!</p>
+<form class="profil-form" [formGroup]="formUsername" (submit)="onChangeUsername()">
+  <label for="username"><h3>Modifier mon nom de joueur</h3></label>
+  <div class="field">
+    <fa-icon [icon]="faUser"></fa-icon>
+    <input id="username" value={{infoUser.username}}>
+    <fa-icon [icon]="faArrowAltCircleRight" (click)="onChangeUsername()"></fa-icon>
+  </div>
+</form>
+
+<form class="profil-form" [formGroup]="formEmail" (submit)="onChangeEmail()">
+  <label for="email"><h3>Modifier mon adresse email</h3></label>
+  <div class="field">
+    <fa-icon [icon]="faEnvelope"></fa-icon>
+    <input controlFormName="email" id="email" value={{infoUser.email}}>
+    <fa-icon [icon]="faArrowAltCircleRight" (click)="onChangeEmail()"></fa-icon>
+  </div>
+</form>
+
+<form class="profil-form" [formGroup]="formPassword" (submit)="onChangePassword()">
+  <label for="email"><h3>Changer mon mot de passe</h3></label>
+  <div class="field">
+    <fa-icon [icon]="faKey"></fa-icon>
+    <input id="email" value="nouveau mot de passe">
+    <fa-icon [icon]="faArrowAltCircleRight" (click)="onChangePassword()"></fa-icon>
+  </div>
+</form>
+
+  <!-- <p>Mon score au Shifumi : {{infoUser.pointsShifumi}} pts</p>
+  <p>Mon score au Dé : {{infoUser.pointsDes}} pts</p>
+  <p>Mon score total : {{infoUser.pointsShifumi + infoUser.pointsDes}}</p> -->
+  <!-- <button>Ok</button> -->
+
+

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faUser, faArrowRight, faArrowLeft, faEnvelope, faKey, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faArrowRight, faArrowLeft, faEnvelope, faKey, faHeart, faArrowAltCircleRight} from '@fortawesome/free-solid-svg-icons';
 import { DataService } from 'src/app/services/data.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -19,13 +19,14 @@ export class SignUpComponent implements OnInit {
   faEnvelope = faEnvelope;
   faKey = faKey;
   faHeart = faHeart;
+  faArrowAltCircleRight = faArrowAltCircleRight;
 
   questions = [
     'Choisis ton nom de joueur !',
     'Quel est ton adresse mail ?',
     'Choisis ton mot de passe !',
     'Confirmes ton mot de passe !',
-    ''  
+    ''
   ];
   positionQ = 0;
 
@@ -35,6 +36,7 @@ export class SignUpComponent implements OnInit {
   password2 = "";
 
   form: FormGroup;
+  formValid = false;
 
   // shared data
   username:string;
@@ -73,7 +75,7 @@ export class SignUpComponent implements OnInit {
       this.errbg(".field-name")
     } else {
       this.username = usernameInput.value
-      this.next(".field-name", ".field-email")  
+      this.next(".field-name", ".field-email")
     }
   }
 
@@ -85,7 +87,7 @@ export class SignUpComponent implements OnInit {
     const validation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (validation.test(inputEmail.value)) {
       this.authService.checkMail(this.form.value).subscribe(
-        res => { 
+        res => {
           if (res == "ok") {
             this.errorMessage = ""
             this.next(".field-email", ".field-password1")
@@ -111,14 +113,18 @@ export class SignUpComponent implements OnInit {
     if (validation.test(inputPassword1.value)) {
       this.password1 = inputPassword1.value
       this.next(".field-password1", ".field-password2");
+      setTimeout ( () => {
+        this.formValid = true;
+      }, 200);
     } else {
       this.errorMessage = "Ton mot de passe doit contenir au moins 8 caractères dont 1 majuscule, 1 minuscule, 1 nombre et 1 caractère spécial";
-      this.errbg(".field-password1")
+      this.errbg(".field-password1");
     }
   }
 
   previous3() {
-    this.previous(".field-password2", ".field-password1")
+    this.previous(".field-password2", ".field-password1");
+    this.formValid = false;
   }
 
   next(field, nextField) {
@@ -154,7 +160,7 @@ export class SignUpComponent implements OnInit {
 
     let nextInput = this.elementRef.nativeElement.querySelector(previousField)
     nextInput.classList.remove('inactive')
-    
+
     this.positionQ --;
     this.errorMessage = "";
     let bgerror = this.elementRef.nativeElement.querySelector(".content-signup")
@@ -199,7 +205,7 @@ export class SignUpComponent implements OnInit {
       this.data.changeUsername(this.username)
       this.data.changeEmail(this.email)
       this.authService.signupUser(this.form.getRawValue())
-        .subscribe( () => this.router.navigate(['/personnalisation']));
+        .subscribe( () => this.router.navigate(['/']));
     }
   }
 
