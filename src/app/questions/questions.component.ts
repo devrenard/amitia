@@ -74,7 +74,8 @@ export class QuestionsComponent implements OnInit {
   resultDiv = false;
 
   botName = "";
-  botImg = "";
+  botImgSelected = ""
+  botImg = "assets/img/bots/bot-" + this.botImgSelected +".svg";
   botNumber:number;
 
   // shared data
@@ -131,12 +132,12 @@ export class QuestionsComponent implements OnInit {
         case this.bot2:
           this.botImg = "assets/img/bots/bot-normal2.svg"
           this.botName = "Lalix"
-          this.botNumber = 1
+          this.botNumber = 2
           break;
         case this.bot3:
           this.botImg = "assets/img/bots/bot-normal3.svg"
           this.botName = "Zorg"
-          this.botNumber = 1
+          this.botNumber = 3
           break;
       }
       this.selectedBot(this.botNumber)
@@ -144,7 +145,9 @@ export class QuestionsComponent implements OnInit {
 
   }
   selectedBot (data) {
-  this.botService.changeBot(data).subscribe()
+    this.botService.changeBot(data).subscribe(
+      res => console.log(res)
+    )
   }
 }
 

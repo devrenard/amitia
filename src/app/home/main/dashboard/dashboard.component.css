@@ -1,0 +1,8 @@
+.card-info p {
+  font-size: 1em;
+}
+
+.card-info p span {
+  display: block;
+  font-size: 1.1em;
+}

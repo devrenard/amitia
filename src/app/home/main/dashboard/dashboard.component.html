@@ -2,35 +2,54 @@
   <div class="row">
     <div class="card card-game left">
       <div class="card-info">
-        <p>Vous êtes au niveau {{level}}</p>
-        <p>Votre score : {{globalScore}} pts</p>
-        <p>Votre classement : 12 eme</p>
+        <p>Vous êtes au niveau :<span>➡️ {{level}}</span></p>
+        <p>Votre score : <span>➡️ {{globalScore}}pts</span></p>
+        <!-- <p>Votre classement : 12 eme</p> -->
       </div>
     </div>
-    
+
     <div class="card card-game left">
       <div class="card-info">
-        <h2>Tic Tac Toe</h2>
+        <!-- <h2>Tic Tac Toe</h2>
         <p>Niveau 2</p>
         <p>Dernier Score : 120 pts</p>
         <p>Meilleur Score : 250 pts</p>
         <a href="#">
           <div class="btn">Jouer</div>
-        </a>
+        </a> -->
+        <p>Nous sommes {{myDate | date: 'fullDate': 'fullDate': 'fr'}},
+          n'oublies pas d'aller prendre l'air !
+        </p>
+
       </div>
     </div>
   </div>
 
   <div class="row column-home">
-    <a href="#" class="card card-greeting">
+    <div (click)="onSayHello()" class="card card-greeting">
+      <div class="card-greeting-inside">
+        <h2>Say Hello 😀</h2>
+      </div>
+    </div>
+    <div (click)="onWhatsUp()" class="card card-greeting">
+      <div class="card-greeting-inside">
+        <h2>What's up !? 🤙</h2>
+      </div>
+    </div>
+    <div (click)="onSendLove()" class="card card-greeting">
       <div class="card-greeting-inside">
         <h2>Send Love ❤️</h2>
       </div>
-    </a>
-    <a href="#" class="card card-greeting">
+    </div>
+    <div (click)="onMakeFun()" class="card card-greeting">
       <div class="card-greeting-inside">
         <h2>Make Fun 😂 </h2>
       </div>
-    </a>
+    </div>
+    <div (click)="onSayGoodbye()" class="card card-greeting">
+      <div class="card-greeting-inside">
+        <h2>Bye bye ! 👋 </h2>
+      </div>
+    </div>
   </div>
 </div>

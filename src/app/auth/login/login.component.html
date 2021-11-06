@@ -1,11 +1,40 @@
-<form [formGroup]="form" (submit)="onLogin()">
-  <div>
-    <input formControlName="email" placeholder="email" required>
-    <p>Please enter a valid email</p>
+<div class="box-login">
+  <div class="login-logo">
+    <img src="../../../assets/img/logo-amitia-login.svg" alt="logo-amitia">
+    <h1>Amitia</h1>
   </div>
-  <div>
-    <input formControlName="password" placeholder="password" required>
-    <p>Please enter a valid password</p>
+  <div class="login-form">
+    <form [formGroup]="form" (submit)="onLogin()">
+      <div class="login-email">
+        <fa-icon [icon]="faEnvelope"></fa-icon>
+        <input type="email" formControlName="email" placeholder="email" (input)="onEmail($event)" required email>
+      </div>
+      <div class="login-password">
+        <fa-icon [icon]="faKey"></fa-icon>
+        <input type="password" formControlName="password" placeholder="mot de passe" (input)="onPassword($event)" required>
+      </div>
+      <div class="login-error">
+        <div class="login-error-front">
+            <p *ngIf="form.get('email').errors?.required && form.get('email').touched">Rentrez un email</p>
+            <p *ngIf="form.get('email').errors?.email && form.get('email').touched">Rentrez un email valide</p>
+            <p *ngIf="form.get('password').errors?.required && form.get('password').touched && form.get('email').value !== '' && !form.get('email').errors?.email">Rentrez un mot de passe</p>
+        </div>
+        <div class="login-error-back">
+          <p>{{errorMessage}}</p>
+        </div>
+      </div>
+      <div class="login-to-signup">
+        <p>
+          Vous n'avez pas de compte ?
+        </p>
+        <a href="/inscription">Je crée mon compte</a>
+      </div>
+      <div class="box-login-button">
+        <button class="btn btn-login" type="submit"
+        [disabled]="!form.valid"
+        >Se connecter</button>
+      </div>
+    </form>
   </div>
-  <button type="submit">Login</button>
-</form>
+
+</div>

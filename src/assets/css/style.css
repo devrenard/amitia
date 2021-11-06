@@ -164,6 +164,90 @@ a.link, a.logo {
 .card img {
   width: 7rem;
 }
+/*****************/
+/***    LOGIN   ***/
+/*****************/
+.box-login {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-email,
+.login-password {
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 2rem;
+  width: 14rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  margin: 14px;
+}
+
+.login-email fa-icon,
+.login-password fa-icon {
+  padding: 10px;
+  cursor: pointer;
+  color: rgba(66, 102, 150, 0.8);
+}
+
+
+.login-email input,
+.login-password input {
+  background: none;
+  border: none;
+  flex: 1;
+  height: 100%;
+  outline: none;
+}
+
+.login-to-signup,
+.login-error {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: -5px;
+}
+
+.login-to-signup p {
+  font-size: 0.9rem;
+}
+
+.login-to-signup a {
+  font-size: 0.8rem;
+  color: #426696;
+  text-decoration: underline;
+  margin: auto;
+}
+
+.login-error {
+  margin-bottom: 7px;
+  display: flex;
+  flex-direction: column;
+}
+
+.box-login-button {
+  margin-top: 17px;
+  display: flex;
+}
+
+.box-login-button button {
+  margin: auto;
+  color: #658ec6;
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border-style: none;
+  cursor:not-allowed;
+  background: linear-gradient( to left top, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3) );
+}
+
+.box-login-button button:enabled {
+  background: linear-gradient( to left top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5) );
+  cursor:pointer;
+}
 
 /*****************/
 /***    BOT   ***/
@@ -227,6 +311,7 @@ a.link, a.logo {
   padding: 0.5rem;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .card-greeting-inside {
@@ -289,6 +374,7 @@ a.card {
 .btn {
   color: white;
   background-color: #426696;
+  cursor: pointer;
 }
 
 

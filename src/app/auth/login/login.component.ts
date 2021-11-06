@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -9,7 +10,12 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  form: FormGroup
+  faEnvelope = faEnvelope;
+  faKey = faKey;
+  
+  form: FormGroup;
+
+  errorMessage = "";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -19,15 +25,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: '',
-      password: ''
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
     });
   }
 
   onLogin():void {
     this.authService.loginUser(this.form.getRawValue())
-      .subscribe( () => {
+      .subscribe( (res) => {
         this.authService.getAuthTrue();
+        localStorage.setItem('token', res.token)
         this.authService.getBotStatus().subscribe(
           res => { 
             if (res.bot == 0) {
@@ -37,7 +44,19 @@ export class LoginComponent implements OnInit {
             }
           }
         )
-      })
+      },
+      (err) => {
+        this.errorMessage = err.error.message
+        } 
+      )
+  }
+
+  onPassword(event: Event) {
+    this.errorMessage = ""
+  }
+  
+  onEmail(event: Event) {
+    this.errorMessage = ""
   }
 
 }

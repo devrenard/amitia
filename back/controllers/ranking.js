@@ -1,12 +1,14 @@
 const jwt = require('jsonwebtoken');
 const User = require ('../models/user');
+require('dotenv').config();
+
 
 
 // Global Ranking : Top 10
 exports.globalRanking = async (req, res) => {
   try{
     const cookie = req.cookies['jwt']
-    const claims = jwt.verify(cookie, 'secret_amitia')
+    const claims = jwt.verify(cookie, process.env.JWT_SECRET)
 
     if (!claims) {
       return res.status(401).send({
@@ -17,7 +19,8 @@ exports.globalRanking = async (req, res) => {
     const usersRanking = await User.aggregate([
       {"$addFields":{ "sort_order":{"$add":["$pointsShifumi", "$pointsDes"]}}},
       {"$sort":{"sort_order":-1}}
-    ]).limit(10)
+    ])
+    // .limit(10)
     console.log(usersRanking);
  
     // const data = await usersShifumi[0].toJSON();
@@ -35,7 +38,7 @@ exports.globalRanking = async (req, res) => {
 exports.shifumiRanking = async (req, res) => {
   try{
     const cookie = req.cookies['jwt']
-    const claims = jwt.verify(cookie, 'secret_amitia')
+    const claims = jwt.verify(cookie, process.env.JWT_SECRET)
 
     if (!claims) {
       return res.status(401).send({
@@ -63,7 +66,7 @@ exports.shifumiRanking = async (req, res) => {
 exports.desRanking = async (req, res) => {
   try{
     const cookie = req.cookies['jwt']
-    const claims = jwt.verify(cookie, 'secret_amitia')
+    const claims = jwt.verify(cookie, process.env.JWT_SECRET)
 
     if (!claims) {
       return res.status(401).send({
@@ -88,7 +91,7 @@ exports.desRanking = async (req, res) => {
 exports.personnalRanking = async (req, res) => {
   try{
     const cookie = req.cookies['jwt']
-    const claims = jwt.verify(cookie, 'secret_amitia')
+    const claims = jwt.verify(cookie, process.env.JWT_SECRET)
 
     if (!claims) {
       return res.status(401).send({
@@ -99,12 +102,12 @@ exports.personnalRanking = async (req, res) => {
     const usersRanking = await User.aggregate([
       {"$addFields":{ "sort_order":{"$add":["$pointsShifumi", "$pointsDes"]}}},
       {"$sort":{"sort_order":-1}}
-    ]).limit(10)
-    console.log(usersRanking);
- 
-    // const data = await usersShifumi[0].toJSON();
+    ])
 
-    res.send(usersRanking);
+    let count = await User.countDocuments()
+    console.log(count);
+ 
+    res.sendStatus(count);
   } 
   catch (err) {
     return res.status(401).send({

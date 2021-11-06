@@ -6,34 +6,31 @@
   <form id="inscription" [formGroup]='form' (submit)="onSignup()">
     <div class="field-name">
       <fa-icon [icon]="faUser"></fa-icon>
-      <input id="username" formControlName="username" type="text" #inputUsername placeholder="Username" required>
+      <input id="username" formControlName="username" type="text" #inputUsername placeholder="Username" (keydown.enter)="next1(inputUsername)" enterkeyhint="next" required>
       <fa-icon [icon]="faArrowRight" (click)="next1(inputUsername)"></fa-icon>
     </div>
     <div class="field-email inactive">
       <fa-icon [icon]="faArrowLeft" (click)="previous1()"></fa-icon>
       <fa-icon [icon]="faEnvelope"></fa-icon>
-      <input type="email" formControlName="email" #inputEmail placeholder="Email" required email>
+      <input type="email" formControlName="email" #inputEmail placeholder="Email" (keydown.enter)="next2(inputEmail)"
+      (keydown.ArrowLeft)="previous1()" required email>
       <fa-icon [icon]="faArrowRight" class="arrow-left" (click)="next2(inputEmail)"></fa-icon>
     </div>
     <div class="field-password1 inactive">
       <fa-icon [icon]="faArrowLeft" (click)="previous2()"></fa-icon>
       <fa-icon [icon]="faKey"></fa-icon>
-      <input id="password1" type="password" #inputPassword1 placeholder="Mot de passe" (input)="onPassword($event)" required>
+      <input id="password1" type="password" #inputPassword1 placeholder="Mot de passe" (input)="onPassword($event)" (keydown.enter)="next3(inputPassword1)" (keydown.Arrowleft)="previous2()" required>
       <fa-icon [icon]="faArrowRight" (click)="next3(inputPassword1)"></fa-icon>
     </div>
     <div class="field-password2 inactive">
       <fa-icon [icon]="faArrowLeft" (click)="previous3()"></fa-icon>
       <fa-icon [icon]="faKey"></fa-icon>
-      <input type="password" placeholder="Confirmes ton mot de passe" formControlName="password" (input)="onConfirmPassword($event)" id="confirmPassword" required>
-      <button #submit type="submit">hey</button>
-      <fa-icon [icon]="faArrowRight" type="button" id="submit"></fa-icon>
+      <input type="password" placeholder="Confirmes ton mot de passe" formControlName="password" (input)="onConfirmPassword($event)" (keydown.Arrowleft)="previous3()" (keydown.enter)="onSignup()" id="confirmPassword" required>
+      <!-- <button #submit type="submit" [disabled]="form.invalid">hey</button> -->
+      <button [disabled]="!formValid" hidden></button>
+      <fa-icon [icon]="faArrowAltCircleRight" (click)="onSignup()"></fa-icon>
+      <!-- <fa-icon [icon]="faArrowRight" type="button" id="submit"></fa-icon> -->
     </div>
-    <!-- <div class="field-finish inactive">
-      <fa-icon [icon]="faArrowLeft"></fa-icon>
-      <fa-icon [icon]="faHeart"></fa-icon>
-      <p>Bienvenue <span id="user"></span> ! Réponds à quelques questions maintenant !</p>
-      <fa-icon [icon]="faHeart"></fa-icon>
-    </div> -->
   </form>
 
   <div class="error">

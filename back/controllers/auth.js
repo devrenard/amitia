@@ -2,6 +2,8 @@ const bcrypt = require ('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const User = require('../models/user');
+require('dotenv').config();
+
 
 // signup
 exports.signup = async (req, res) => {
@@ -42,25 +44,23 @@ exports.login = async (req, res) => {
 
   if(!user) {
     return res.status(404).send({
-      message: 'user not found'
+      message: "L'adresse mail est inconnue"
     })
   }
 
   if(!await bcrypt.compare(req.body.password, user.password)) {
     return res.status(404).send({
-      message: 'password is false'
+      message: "Le mot de passe est incorrect"
     })
   }
 
-  const token = jwt.sign({_id: user._id}, 'secret_amitia')
+  const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET)
 
   res.cookie('jwt', token, {
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000 // 1 day
   })
-  res.send({
-    message: 'success'
-  })
+  res.send({token})
 }
 
 // check bot first login
@@ -68,7 +68,7 @@ exports.checkBot = async (req, res) => {
   try{
     const cookie = req.cookies['jwt']
 
-    const claims = jwt.verify(cookie, 'secret_amitia')
+    const claims = jwt.verify(cookie, process.env.JWT_SECRET)
 
     if (!claims) {
       return res.status(401).send({

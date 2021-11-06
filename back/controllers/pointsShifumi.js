@@ -1,12 +1,13 @@
 const jwt = require('jsonwebtoken');
 const User = require ('../models/user');
+require('dotenv').config();
 
 // SHIFUMI
 // Shifumi Win Level 1 : add 3 points
 exports.win1 = async (req, res) => {
   try{
     const cookie = req.cookies['jwt']
-    const claims = jwt.verify(cookie, 'secret_amitia')
+    const claims = jwt.verify(cookie, process.env.JWT_SECRET)
 
     if (!claims) {
       return res.status(401).send({
@@ -39,7 +40,7 @@ exports.win1 = async (req, res) => {
 exports.lose1 = async (req, res) => {
   try{
     const cookie = req.cookies['jwt']
-    const claims = jwt.verify(cookie, 'secret_amitia')
+    const claims = jwt.verify(cookie, process.env.JWT_SECRET)
 
     if (!claims) {
       return res.status(401).send({
@@ -72,7 +73,7 @@ exports.lose1 = async (req, res) => {
 exports.win2 = async (req, res) => {
   try{
     const cookie = req.cookies['jwt']
-    const claims = jwt.verify(cookie, 'secret_amitia')
+    const claims = jwt.verify(cookie, process.env.JWT_SECRET)
 
     if (!claims) {
       return res.status(401).send({
@@ -105,7 +106,7 @@ exports.win2 = async (req, res) => {
 exports.lose2 = async (req, res) => {
   try{
     const cookie = req.cookies['jwt']
-    const claims = jwt.verify(cookie, 'secret_amitia')
+    const claims = jwt.verify(cookie, process.env.JWT_SECRET)
 
     if (!claims) {
       return res.status(401).send({
@@ -138,7 +139,7 @@ exports.lose2 = async (req, res) => {
 exports.win3 = async (req, res) => {
   try{
     const cookie = req.cookies['jwt']
-    const claims = jwt.verify(cookie, 'secret_amitia')
+    const claims = jwt.verify(cookie, process.env.JWT_SECRET)
 
     if (!claims) {
       return res.status(401).send({
@@ -171,7 +172,7 @@ exports.win3 = async (req, res) => {
 exports.lose3 = async (req, res) => {
   try{
     const cookie = req.cookies['jwt']
-    const claims = jwt.verify(cookie, 'secret_amitia')
+    const claims = jwt.verify(cookie, process.env.JWT_SECRET)
 
     if (!claims) {
       return res.status(401).send({

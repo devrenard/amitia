@@ -1,0 +1,31 @@
+.box-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-logo {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-logo img {
+  width: 120px;
+  margin: auto;
+  opacity: .7;
+}
+
+.box-login img:hover,
+.box-login h1:hover {
+  filter: saturate(105%);
+  opacity: .9;
+  transition: all .3s;
+}
+
+.login-logo h1 {
+  opacity: .6;
+  margin-top: 10px;
+}
+

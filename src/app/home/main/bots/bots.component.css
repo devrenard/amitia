@@ -1,0 +1,24 @@
+.robot-choice {
+  display: flex;
+  align-items: center;
+}
+
+#btn-bot {
+  margin-top: 6em;
+}
+
+.bot-choice {
+  margin: 2.5em 4.5em;
+}
+
+.arrow-left,
+.arrow-right {
+  color: #426696;
+  cursor: pointer;
+}
+
+.arrow-left fa-icon,
+.arrow-right fa-icon {
+  width: 500px;
+}
+
